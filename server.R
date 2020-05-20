@@ -28,7 +28,7 @@ server <- function(input, output, session) {
   goals = NULL
   predicted = NULL
   actual = NULL
-  
+
   selectedData <- reactive({
     iris[, c(input$xcol, input$ycol)]
   })
@@ -41,22 +41,26 @@ server <- function(input, output, session) {
       runjs(paste0("document.getElementById('expePos').style.backgroundColor = '", color ,"'"))
     }
   })
-  
+
   observeEvent(input$nrep, {
     if(input$nrep>1000){
     showNotification("ATTENZIONE! Un numero alto di simulazioni fornisce stime attendibili ma richiede molto tempo per essere calcolato. Scegli un numero basso oppure...mettiti comodo!", type = "warning")
     }
   })
-  
-  
+
+
   observeEvent(input$quickrun, {
     updateSliderInput(session,"nrep",value=100)
   })
-  
+
   observeEvent(input$runFile2, {
-    showNotification("ATTENZIONE! Funzione non ancora implementata", type = "error")
+    showModal(modalDialog(
+      title = "Scarica file calendario",
+      p("Scarri la pagina e cerca il pulsante",img(src="button.png",width="18%"), "per scaricare il calendario della tua lega."),
+      tags$iframe(src=paste0("https://leghe.fantacalcio.it/",tolower(gsub(" ","-",input$file2)),"/calendario"), height=400, width=550)
+    ))
   })
-  
+
   observeEvent(input$file1, {
     req(input$file1)
     data = read_excel(input$file1$datapath)
@@ -70,7 +74,7 @@ server <- function(input, output, session) {
     updateSliderInput(session,"nrep",max = nrow(perms))
     updateSelectInput(session, "teams", choices = names)
   })
-  
+
   observeEvent(input$run, {
     withProgress(message = 'Loading', value = 0, {
     simul <- pbapply(perms[sample(1:nrow(perms), input$nrep, replace=FALSE),],1,function(row){
@@ -79,27 +83,27 @@ server <- function(input, output, session) {
       return(rank(-calculateFinal(goals,rounds),ties.method = "min"))
     })
     })
-    
+
     predicted <<- rank(apply(simul, 1, mean),ties.method = "min")
-    
+
     updateTextInput(session,"expePos",value=as.character(predicted[input$teams]))
-    
+
     withProgress(message = 'Carico grafici...', value = 0, {
     piazz = sort((rowSums(simul)))
-    
+
     mean = apply(simul, 1, mean)
     sd = apply(simul, 1, sd)
     names = names(sd)
     df = data.frame(names,mean,sd)
     df$actual = actual[names]
-    
+
     output$plot <- renderPlotly({
       plot_ly(df, x = ~names, y = ~mean, type = 'bar', name = 'Expected')%>%
         add_trace(y = ~actual, name = 'Actual') %>%
         layout(yaxis = list(title = 'Posizionamento'),xaxis = list(title = 'Squadre'), barmode = 'group')
     })
     incProgress(0.5, detail = 'Carico grafici...')
-    
+
       #percentuale di vittorie
       position = 1
       count = table(names(which(simul==position,arr.ind = TRUE)[,1]))
@@ -117,19 +121,19 @@ server <- function(input, output, session) {
                middle = 0.5 * (start + end),
                hjust = ifelse(middle > pi, 1, 0),
                vjust = ifelse(middle < pi/2 | middle > 3 * pi/2, 0, 1))
-    
+
     incProgress(0.25, detail = 'Carico grafici...')
-    
+
     output$plot2 <- renderPlotly({
       plot_ly(df, labels = ~teams, values = ~freq, type = 'pie') %>%
         layout(title = '',
                xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
     })
-    
+
     incProgress(0.25, detail = 'Carico grafici...')
     })
-    
+
     color = ifelse(input$currPos<=input$expePos,"DarkSeaGreen","LightCoral")
     runjs(paste0("document.getElementById('expePos').style.backgroundColor = '", color ,"'"))
 })

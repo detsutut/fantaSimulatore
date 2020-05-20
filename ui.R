@@ -15,18 +15,17 @@ ui <- fluidPage(
         width = 350,
         fluidRow(
           column(width = 9,
-                 textInput(inputId = 'file2', label = 'Recupera da:', value = "", width = "100%", placeholder = "Nome-della-lega"),
+                 textInput(inputId = 'file2', label = 'Recupera calendario da:', value = "", width = "100%", placeholder = "Inserisci nome della tua lega"),
                  style='padding-left:0px;padding-right:0px'
           ),
-          column(width = 2, 
+          column(width = 2,
                  br(),
                  actionButton(inputId = "runFile2", label = "", width = NULL, icon = icon("search")),
                  style='margin-top:10px;padding-left:0px'
           ),
           style='margin:0%;'
         ),
-        h6("oppure", style = "text-align: center"),
-        fileInput(inputId =  "file1", "Carica file calendario",width = "95%",
+        fileInput(inputId =  "file1", "Carica il calendario della competizione",width = "95%",
                   multiple = FALSE),
         hr(),
         sliderInput("nrep", "Numero di simulazioni:",width = "95%",
@@ -41,12 +40,15 @@ ui <- fluidPage(
                  textInput(inputId = 'currPos', label = 'Piazzamento attuale', value = "", width = "95%", placeholder = NULL),
                  style='margin:0%;padding-left:0px;padding-right:0px'
           ),
-          column(width = 6, 
+          column(width = 6,
                  textInput(inputId = 'expePos', label = 'Atteso', value = "", width = "95%", placeholder = NULL),
                  style='margin:0%;padding-left:0px;padding-right:0px'
           ),
           style='margin:0%;padding-left:0px;padding-right:0px'
-        )
+        ),
+        hr(style="border-top-color:rgba(0,0,0,.1"),
+        div(p(style="user-select: none; color: #C2BCB7; text-align:center","\u{00A9}",
+              tags$u(a("Detsutut - 2020",href="https://github.com/detsutut"))))
       ),
       dashboardBody(
         plotlyOutput("plot"),
