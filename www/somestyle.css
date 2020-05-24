@@ -2,4 +2,72 @@
 	color:blue;
 }
 
+#introduction {
+	position: relative;
+	background-color: rgba(0, 132, 255, 0.308);
+	border-left-style: solid;
+	border-width: 10px;
+	border-color: rgb(0, 132, 255);
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	animation-name: example;
+	animation-fill-mode: forwards;  
+	animation-duration: 1s;
+}
+
 hr {border-top: 1px solid #000000;}
+
+#introduction2 {
+	position: relative;
+	background-color: rgba(255, 217, 0, 0.438);
+	border-left-style: solid;
+	border-width: 10px;
+	border-color: rgb(255, 196, 0);
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	animation-name: example;
+	animation-duration: 1s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;  
+	opacity: 0;
+}
+
+#introduction3 {
+	position: relative;
+	background-color: rgba(0, 255, 55, 0.438);
+	border-left-style: solid;
+	border-width: 10px;
+	border-color: rgb(18, 185, 46);
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	animation-name: example;
+	animation-duration: 1s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;  
+	opacity: 0;
+}
+
+@keyframes example {
+	from {width:1%; opacity: 1;}
+	to {width:100%; opacity: 1;}
+}
+
+#introText {
+	animation-name: example2;
+	animation-fill-mode: forwards;  
+	animation-duration: 1s;
+	opacity: 0;
+}
+
+#introText2 {
+	animation-name: example2;
+	animation-fill-mode: forwards;  
+	animation-duration: 1s;
+	animation-delay: 1s;
+	opacity: 0;
+}
+
+@keyframes example2 {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
