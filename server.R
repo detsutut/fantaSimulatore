@@ -91,6 +91,35 @@ server <- function(input, output, session) {
     withProgress(message = 'Carico grafici...', value = 0, {
     piazz = sort((rowSums(simul)))
 
+    podiums = na.replace(t(apply(simul,1,function(x){table(x)[c("1","2","3")]})),0)
+    strlist = c()
+    for(i in 1:nrow(podiums)){
+    strlist = c(strlist, paste0("team:'",row.names(podiums)[i],"', First:",podiums[i,1],
+           ", Second:",podiums[i,2],", Third:",podiums[i,3],collapse = ""))
+    }
+    s= paste0("{",strlist,"},",collapse = "")
+    s= substr(s,1,nchar(s)-1)
+
+    runjs(paste0("
+      $('#vizStacked').empty();
+      new roughViz.StackedBar(
+        {
+                element: '#vizStacked',
+                data: [",s,"],
+                labels: 'team',
+                title: 'Piazzamenti Sul Podio',
+                width: window.innerWidth / 3,
+                strokeWidth: 2,
+                roughness: 3,
+                fillStyle: 'zigzag',
+                fillWeight: 1.5,
+                titleFontSize: '3rem',
+                tooltipFontSize: '2rem',
+                axisFontSize: '2rem'
+          }
+          );
+    "))
+
     mean = apply(simul, 1, mean)
     sd = apply(simul, 1, sd)
     names = names(sd)
@@ -98,6 +127,36 @@ server <- function(input, output, session) {
     df$actual = actual[names]
 
     runjs(paste0("document.getElementById('introContainer').style.display = 'none'"))
+
+    t= paste0("'",df$names,"',",collapse = "")
+    t= substr(t,1,nchar(t)-1)
+
+    v= paste0(df$mean,",",collapse = "")
+    v= substr(v,1,nchar(v)-1)
+
+    runjs(paste0("
+      $('#vizBar').empty();
+      new roughViz.Bar(
+        {
+                element: '#vizBar',
+                data: {
+                labels: [",t,"],
+                values: [",v,"]
+                },
+                title: 'Posizionamento Medio',
+                width: window.innerWidth/1.5,
+                roughness: 3,
+                stroke: 'skyblue',
+                strokeWidth: 2,
+                fillStyle: 'zigzag',
+                fillWeight: 1.5,
+                titleFontSize: '3rem',
+                tooltipFontSize: '2rem',
+                colors: ['coral', 'skyblue', '#66c2a5', 'tan', '#e78ac3', '#a6d854', '#ffd92f', 'tan', 'orange'],
+                axisFontSize: '2rem'
+}
+          );
+    "))
 
     output$plot <- renderPlotly({
       plot_ly(df, x = ~names, y = ~mean, type = 'bar', name = 'Expected')%>%
@@ -144,11 +203,10 @@ server <- function(input, output, session) {
                 },
                 title: 'Vittoria Campionato',
                 width: window.innerWidth / 3,
+                strokeWidth: 2,
                 roughness: 3,
-                stroke: 'black',
-                strokeWidth: 4,
                 fillStyle: 'zigzag',
-                fillWeight: 3.5,
+                fillWeight: 1.5,
                 titleFontSize: '3rem',
                 tooltipFontSize: '2rem',
                 colors: ['coral', 'skyblue', '#66c2a5', 'tan', '#e78ac3', '#a6d854', '#ffd92f', 'tan', 'orange']

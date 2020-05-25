@@ -75,8 +75,12 @@ ui <- fluidPage(
             img(src="example3.png",width="97%",style="  display: block;margin-left: auto;margin-right: auto;")
         )
         ),
-        div(id="vizPie"),
-        plotlyOutput("plot")
+        div(id="vizPie",style="float:left;"),
+        div(id="vizStacked",style="float:right;"),
+        br(),
+        br(),
+        div(id="vizBar",style="display: block;margin-left: auto;margin-right: auto;")
+        #plotlyOutput("plot")
         #plotlyOutput("plot2")
       )
     )
