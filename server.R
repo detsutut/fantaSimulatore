@@ -97,10 +97,13 @@ server <- function(input, output, session) {
     df = data.frame(names,mean,sd)
     df$actual = actual[names]
 
+    runjs(paste0("document.getElementById('introContainer').style.display = 'none'"))
+
     output$plot <- renderPlotly({
       plot_ly(df, x = ~names, y = ~mean, type = 'bar', name = 'Expected')%>%
         add_trace(y = ~actual, name = 'Actual') %>%
-        layout(yaxis = list(title = 'Posizionamento'),xaxis = list(title = 'Squadre'), barmode = 'group')
+        layout(yaxis = list(title = 'Posizionamento'),xaxis = list(title = 'Squadre'), barmode = 'group',
+               plot_bgcolor  = "rgba(0, 0, 0, 0)", paper_bgcolor = "rgba(0, 0, 0, 0)")
     })
     incProgress(0.5, detail = 'Carico grafici...')
 
@@ -124,11 +127,41 @@ server <- function(input, output, session) {
 
     incProgress(0.25, detail = 'Carico grafici...')
 
+    t= paste0("'",df$teams,"',",collapse = "")
+    t= substr(t,1,nchar(t)-1)
+
+    v= paste0(df$freq,",",collapse = "")
+    v= substr(v,1,nchar(v)-1)
+
+    runjs(paste0("
+      $('#vizPie').empty();
+      new roughViz.Pie(
+        {
+                element: '#vizPie',
+                data: {
+                labels: [",t,"],
+                values: [",v,"]
+                },
+                title: 'Vittoria Campionato',
+                width: window.innerWidth / 3,
+                roughness: 3,
+                stroke: 'black',
+                strokeWidth: 4,
+                fillStyle: 'zigzag',
+                fillWeight: 3.5,
+                titleFontSize: '3rem',
+                tooltipFontSize: '2rem',
+                colors: ['coral', 'skyblue', '#66c2a5', 'tan', '#e78ac3', '#a6d854', '#ffd92f', 'tan', 'orange']
+          }
+          );
+    "))
+
     output$plot2 <- renderPlotly({
       plot_ly(df, labels = ~teams, values = ~freq, type = 'pie') %>%
         layout(title = '',
                xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-               yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+               yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+               plot_bgcolor  = "rgba(0, 0, 0, 0)", paper_bgcolor = "rgba(0, 0, 0, 0)")
     })
 
     incProgress(0.25, detail = 'Carico grafici...')

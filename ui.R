@@ -8,6 +8,7 @@ library(plotly)
 ui <- fluidPage(
   useShinyjs(),
   theme = "somestyle.css",
+  includeScript(path = "https://unpkg.com/rough-viz@1.0.6"),
   dashboardPage(
       dashboardHeader(title = "Fantasimulatore \u{26BD}",
                       titleWidth = 350),
@@ -51,33 +52,32 @@ ui <- fluidPage(
               tags$u(a("Detsutut - 2020",href="https://github.com/detsutut"))))
       ),
       dashboardBody(
-        div(id="introContainer", style="background-image: url(texture.jpg); background-repeat: repeat;",
-        div(id="introduction",
-            div(id ="introText", style="text-align: center; padding: 10px 10px 10px 10px;",
-            h4("Il tuo tridente da sogno ti ha lasciato fuori dal podio?"),
-            h4("La tua media di 4 gol a partita non ha impedito al tuo dream team di subire più gol del Benevento?"),
-            h4("Hai comprato Higuain nell'anno del record e sei riuscito comunque ad arrivare secondo?"),
-            br(),
-            h4("Scopri quanto sei sfigato con il ",tags$b("Fantasimulatore!"))
-            )
-        ),
+        div(id="introContainer",
+        # div(id="introduction",
+        #     div(id ="introText", style="text-align: center; padding: 10px 10px 10px 10px;",
+        #         h4("Per vincere il fantacalcio serve un mix di bravura, pianificazione, talent scouting e...fortuna. Tanta fortuna."),
+        #         h4("Costruire la rosa più forte possibile talvolta può non essere sufficiente di fronte ad un calendario poco favorevole, dove roboanti pareggi 4-4 si affiancano a risicate vittorie per 1-0."),
+        #         h4("Spesso, infatti, la disposizione delle squadre ai blocchi di partenza quando si genera il calendario del campionato si rivela fondamentale per la classifica finale, più degli effettivi risultati ottenuti sul campo."),
+        #         br(),
+        #         h4("Lo scopo di ",tags$b("Fantasimulatore"),"è quello di rimuovere il Fattore C - dove C non sta per Calendario - dal fantacalcio andando a calcolare tutti i possibili sorteggi di calendario e simulando l'esito del campionato per ciascuno di essi.")
+        #     )
+        # ),
+        # br(),
+        # div(id="introduction2",
+        #     div(id ="introText2", style="text-align: center; padding: 10px 10px 10px 10px;",
+        #         h4(tags$b("Fantasimulatore")," mantiene il punteggio reale per ogni giornata giocata, ma simula tutti i possibili assortimenti alternativi e determina in questo modo le probabilità di ciascun esito."),
+        #         h4("A differenza della classifica per punteggio totale, simulare tutti i possibili assortimenti permette di tenere in considerazione non solo il numero di punti fatti ma anche la loro distribuzione: vincere una giornata con cinque gol di scarto e pareggiare la successiva da' meno garanzie rispetto al vincerle entrambe con un gol di scarto.")
+        #     )
+        # ),
         br(),
-        div(id="introduction2",
-            div(id ="introText2", style="text-align: center; padding: 10px 10px 10px 10px;",
-                h5("Per vincere il fantacalcio serve un mix di bravura, pianificazione, talent scouting e...fortuna. Tanta fortuna."),
-                h5("Costruire la rosa più forte possibile talvolta può non essere sufficiente di fronte ad un calendario poco favorevole, dove roboanti pareggi 4-4 si affiancano a risicate vittorie per 1-0."),
-                h5("Spesso, infatti, la disposizione delle squadre ai blocchi di partenza quando si genera il calendario del campionato si rivela fondamentale per la classifica finale, più degli effettivi risultati ottenuti sul campo."),
-                br(),
-                h5("Lo scopo di ",tags$b("Fantasimulatore"),"è quello di rimuovere il Fattore C - dove C non sta per Calendario - dal fantacalcio andando a calcolare tutti i possibili sorteggi di calendario e simulando l'esito del campionato per ciascuno di essi.")
-            )
-        ),
         br(),
         div(id="introduction3", style="align: center;",
-            img(src="example3.png",width="90%",style="  display: block;margin-left: auto;margin-right: auto;")
+            img(src="example3.png",width="97%",style="  display: block;margin-left: auto;margin-right: auto;")
         )
         ),
-        plotlyOutput("plot"),
-        plotlyOutput("plot2")
+        div(id="vizPie"),
+        plotlyOutput("plot")
+        #plotlyOutput("plot2")
       )
     )
 )

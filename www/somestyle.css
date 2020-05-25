@@ -2,9 +2,11 @@
 	color:blue;
 }
 
+/* 
+
 #introduction {
 	position: relative;
-	background-color: rgba(0, 132, 255, 0.308);
+	background-color: rgba(128, 219, 255, 0.425);
 	border-left-style: solid;
 	border-width: 10px;
 	border-color: rgb(0, 132, 255);
@@ -15,14 +17,23 @@
 	animation-duration: 1s;
 }
 
+*/
+
 hr {border-top: 1px solid #000000;}
+
+.content {
+	background-image: url(texture.jpg); 
+	background-repeat: repeat;
+}
+
+/* 
 
 #introduction2 {
 	position: relative;
-	background-color: rgba(255, 217, 0, 0.438);
+	background-color: rgba(128, 219, 255, 0.425);
 	border-left-style: solid;
 	border-width: 10px;
-	border-color: rgb(255, 196, 0);
+	border-color: rgb(0, 132, 255);
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 	animation-name: example;
@@ -34,10 +45,8 @@ hr {border-top: 1px solid #000000;}
 
 #introduction3 {
 	position: relative;
-	background-color: rgba(0, 255, 55, 0.438);
 	border-left-style: solid;
 	border-width: 10px;
-	border-color: rgb(18, 185, 46);
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 	animation-name: example;
@@ -71,3 +80,5 @@ hr {border-top: 1px solid #000000;}
 	from {opacity: 0;}
 	to {opacity: 1;}
 }
+
+*/
