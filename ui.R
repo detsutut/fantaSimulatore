@@ -52,6 +52,7 @@ ui <- fluidPage(
               tags$u(a("Detsutut - 2020",href="https://github.com/detsutut"))))
       ),
       dashboardBody(
+        div(id= "loading", class = "loading",'Loading&#8230;'),
         div(id="introContainer",
         # div(id="introduction",
         #     div(id ="introText", style="text-align: center; padding: 10px 10px 10px 10px;",
@@ -70,9 +71,13 @@ ui <- fluidPage(
         #     )
         # ),
         br(),
+        div(id="introduction", style="align: center;",
+            img(src="info.png",width="45%",style="display: block;margin-left: 0px;")
+        ),
+        br(),
         br(),
         div(id="introduction3", style="align: center;",
-            img(src="example3.png",width="97%",style="  display: block;margin-left: auto;margin-right: auto;")
+            img(src="example3.png",width="97%",style="display: block;margin-left: auto;margin-right: auto;")
         )
         ),
         div(id="vizPie",style="float:left;"),

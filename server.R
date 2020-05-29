@@ -28,6 +28,7 @@ server <- function(input, output, session) {
   goals = NULL
   predicted = NULL
   actual = NULL
+  hide('loading')
 
   selectedData <- reactive({
     iris[, c(input$xcol, input$ycol)]
@@ -75,7 +76,26 @@ server <- function(input, output, session) {
     updateSelectInput(session, "teams", choices = names)
   })
 
+
+  #' Hide the loading splashscreen
+  #'
+  #' @param modal the splashscreen to hide is on a modal
+  #' @param query the splashscreen to hide is on a query panel
+  hideLoading = function(){
+    hideElement(id = 'loading')
+  }
+
+  #' Show the loading splashscreen
+  #'
+  #' @param modal show the loading splashscreen on a modal
+  #' @param query show the loading splashscreen on the query panel
+  showLoading = function(){
+    showElement(id = 'loading')
+  }
+
+
   observeEvent(input$run, {
+    showLoading()
     withProgress(message = 'Loading', value = 0, {
     simul <- pbapply(perms[sample(1:nrow(perms), input$nrep, replace=FALSE),],1,function(row){
       rounds = getRounds(row,length(weeks))
@@ -152,7 +172,6 @@ server <- function(input, output, session) {
                 fillWeight: 1.5,
                 titleFontSize: '3rem',
                 tooltipFontSize: '2rem',
-                colors: ['coral', 'skyblue', '#66c2a5', 'tan', '#e78ac3', '#a6d854', '#ffd92f', 'tan', 'orange'],
                 axisFontSize: '2rem'
 }
           );
@@ -201,15 +220,14 @@ server <- function(input, output, session) {
                 labels: [",t,"],
                 values: [",v,"]
                 },
-                title: 'Vittoria Campionato',
+                title: 'Vittorie Campionato',
                 width: window.innerWidth / 3,
                 strokeWidth: 2,
                 roughness: 3,
                 fillStyle: 'zigzag',
                 fillWeight: 1.5,
                 titleFontSize: '3rem',
-                tooltipFontSize: '2rem',
-                colors: ['coral', 'skyblue', '#66c2a5', 'tan', '#e78ac3', '#a6d854', '#ffd92f', 'tan', 'orange']
+                tooltipFontSize: '2rem'
           }
           );
     "))
@@ -227,5 +245,6 @@ server <- function(input, output, session) {
 
     color = ifelse(input$currPos<=input$expePos,"DarkSeaGreen","LightCoral")
     runjs(paste0("document.getElementById('expePos').style.backgroundColor = '", color ,"'"))
+    hideLoading()
 })
 }
