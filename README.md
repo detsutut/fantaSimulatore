@@ -22,6 +22,10 @@ FantaSimulatore mantiene il punteggio reale che ogni squadra ha totalizzato per 
 
 A differenza della classifica per punteggio totale, simulare tutti i possibili assortimenti permette di tenere in considerazione non solo il numero di punti fatti ma anche la loro distribuzione: vincere una giornata con cinque gol di scarto e pareggiare la successiva da' meno garanzie rispetto al vincerle entrambe con un gol di scarto.
 
+<p align="center">
+  <img src="www/screenshot.png" alt="frameline example" width="100%"/>
+</p>
+
 ## Limitazioni
 
  - Eventuali bonus legati al giocare in casa o in trasferta non vengono ricalcolati e potrebbero alterare il risultato finale.
