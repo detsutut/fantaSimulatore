@@ -29,6 +29,8 @@ server <- function(input, output, session) {
   predicted = NULL
   actual = NULL
   hide('loading')
+  hide('advancedOptions')
+  hide('teamsPanel')
 
   selectedData <- reactive({
     iris[, c(input$xcol, input$ycol)]
@@ -49,6 +51,10 @@ server <- function(input, output, session) {
     }
   })
 
+  observeEvent(input$advanced, {
+    if(input$advanced) show('advancedOptions')
+    else hide('advancedOptions')
+  })
 
   observeEvent(input$quickrun, {
     updateSliderInput(session,"nrep",value=100)
@@ -245,6 +251,7 @@ server <- function(input, output, session) {
 
     color = ifelse(input$currPos<=input$expePos,"DarkSeaGreen","LightCoral")
     runjs(paste0("document.getElementById('expePos').style.backgroundColor = '", color ,"'"))
+    show('teamsPanel')
     hideLoading()
 })
 }
