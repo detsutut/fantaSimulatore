@@ -1,4 +1,4 @@
-# FantaSimulatore
+# [FantaSimulatore](https://detsutut.shinyapps.io/fantaSimulatore/)
 
 ## Che cos'è FantaSimulatore?
 
@@ -25,6 +25,29 @@ A differenza della classifica per punteggio totale, simulare tutti i possibili a
 <p align="center">
   <img src="www/screenshot.png" alt="frameline example" width="100%"/>
 </p>
+
+## Come utilizzare FantaSimulatore
+
+Utilizzare **FantaSimulatore** è semplice:
+
+1) accedi alla web app [qui](https://detsutut.shinyapps.io/fantaSimulatore/)
+2) se non lo hai già, recupera il calendario della tua lega su [Leghe Fantacalcio](https://leghe.fantacalcio.it/) seguendo le istruzioni fornite dall'applicazione
+    - questo passaggio richiede di effettuare il login nella propria lega
+3) carica su FantaSimulatore il file appena ottenuto
+4) imposta il numero di simulazioni
+    - impostando un numero elevato (>10000) di simulazioni, i tempi di simulazione potrebbero essere molto lunghi (10 minuti circa)
+    - 500/1000 simulazioni sono sufficienti ad ottenere risultati affidabili (i calendari della competizione da simulare sono campionati casualmente fra tutti i calendari possibili)
+5) premi *simula* e attendi che la simulazione sia completata!
+
+## Come interpretare i risultati delle simulazioni
+
+FantaSimulatore fornisce tre parametri di valutazione:
+
+1) **Vittorie Campionato**. Grafico a torta che riporta il numero di campionati simulati vinti da ciascuna squadra. Da una squadra prima in classifica per merito ovviamente ci si aspetta la fetta più grande della torta, e **tanto più ampia è la fetta tanto più robusto alle variazioni di calendario (e quindi legittimo) è il primato**.
+
+2) **Piazzamenti Sul Podio**. Il fantacalcio non è solo primo posto, e una squadra con scarse probabilità di vincere il campionato potrebbe comunque essere la candidata legittima per il secondo gradino del podio ed essere premiata. Questo grafico a barre mostra per ogni squadra il numero di piazzamenti sul podio e la loro ripartizione fra primo, secondo e terzo posto.
+
+3) **Posizionamento Medio**. Infine, la più classica delle valutazioni: il posizionamento medio di ciascuna squadra, ovvero il più giusto criterio secondo cui stilare la classifica finale di arrivo.
 
 ## Limitazioni
 
