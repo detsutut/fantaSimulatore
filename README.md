@@ -33,6 +33,7 @@ Utilizzare **FantaSimulatore** è semplice:
 1) accedi alla web app [qui](https://detsutut.shinyapps.io/fantaSimulatore/)
 2) se non lo hai già, recupera il calendario della tua lega su [Leghe Fantacalcio](https://leghe.fantacalcio.it/) seguendo le istruzioni fornite dall'applicazione
     - questo passaggio richiede di effettuare il login nella propria lega
+    - non hai una lega su Leghe Fantacalcio? [Scarica il file di prova qui](https://github.com/detsutut/fantaSimulatore/blob/master/Calendario_Demo.xlsx)
 3) carica su FantaSimulatore il file appena ottenuto
 4) imposta il numero di simulazioni
     - impostando un numero elevato (>10000) di simulazioni, i tempi di simulazione potrebbero essere molto lunghi (10 minuti circa)
